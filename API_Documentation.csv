@@ -1,0 +1,8 @@
+Endpoint,Method,Auth Required,Description,Request Body/Params,Response Data
+/api/auth/register,POST,No,Register new admin user,"{ ""username"": ""str"", ""password"": ""str"" }","{ ""message"": ""str"" }"
+/api/auth/login,POST,No,Login admin user,"{ ""username"": ""str"", ""password"": ""str"" }","{ ""message"": ""str"", ""adminId"": 1 } + Set-Cookie"
+/api/quiz/create,POST,Yes (Admin),Create a new quiz,"{ ""title"": ""str"" }","{ ""message"": ""str"", ""quizId"": 1, ""joinCode"": ""str"" }"
+/api/quiz/admin/list,GET,Yes (Admin),Get list of admin quizzes with participant counts,None,"[ { ""id"": 1, ""title"": ""str"", ""join_code"": ""str"", ""created_at"": ""date"", ""participant_count"": 0 } ]"
+/api/quiz/questions,POST,Yes (Admin),Add multiple questions to a quiz,"{ ""quizId"": 1, ""questions"": [ { ""question_text"": ""str"", ""opt_a"": ""str"", ""opt_b"": ""str"", ""opt_c"": ""str"", ""opt_d"": ""str"", ""answer_key"": ""str"" } ] }","{ ""message"": ""str"" }"
+/api/quiz/join/[code],GET,No,Join a quiz by code and get questions (without answer key),URL Param: [code],"{ ""quizId"": 1, ""title"": ""str"", ""questions"": [ { ""id"": 1, ""question_text"": ""str"", ""opt_a"": ""str"", ""opt_b"": ""str"", ""opt_c"": ""str"", ""opt_d"": ""str"" } ] }"
+/api/quiz/submit,POST,No,Submit quiz answers and calculate score,"{ ""quizId"": 1, ""nickname"": ""str"", ""answers"": [ { ""questionId"": 1, ""answer"": ""str"" } ] }","{ ""message"": ""str"", ""nickname"": ""str"", ""score"": 100, ""correctCount"": 5, ""totalQuestions"": 5 }"
